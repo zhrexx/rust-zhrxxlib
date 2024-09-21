@@ -1,0 +1,24 @@
+[package]
+name = "ZHRXXLib"
+version = "0.3.3"
+
+authors = ["zhrxxgroup"]
+description = "Simple Library, will be updated in future"
+license = "MIT"
+homepage = "https://zhrxxgroup.com"
+
+keywords = ["lib", "zhrxxgroup"]
+categories = ["command-line-utilities"]
+
+edition = "2021"
+include = [
+    "**/*.rs",
+    "Cargo.toml"
+]
+
+readme = "README.md"
+
+[dependencies]
+chrono = "0.4"
+x-win = "1.10.2"
+urlencoding = "2.1.3"
