@@ -1,5 +1,5 @@
 [package]
-name = "ZHRXXLib"
+name = "zhrxxlib"
 version = "0.3.4"
 
 authors = ["zhrxxgroup"]
@@ -11,7 +11,7 @@ keywords = ["lib", "zhrxxgroup"]
 categories = ["command-line-utilities"]
 documentation = "https://zxdocs.gitbook.io/zhrxxlib"
 
-edition = "2021"
+edition = "2024"
 include = [
     "**/*.rs",
     "Cargo.toml"
