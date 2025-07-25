@@ -1,6 +1,6 @@
 [package]
-name = "zhrxxlib"
-version = "0.3.4"
+name = "ZHRXXLib"
+version = "0.4.1"
 
 authors = ["zhrxxgroup"]
 description = "Simple Library, will be updated in future"
