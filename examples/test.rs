@@ -1,5 +1,11 @@
-use zhrxxlib::*;
+use std::any::TypeId;
+use std::any::Any;
+use ZHRXXLib::*;
+
+struct A;
 
 fn main() {
-    zhrxxlib::input("Hey");
+    let a = A;
+    println!("{}", is!(a, A));
+
 }

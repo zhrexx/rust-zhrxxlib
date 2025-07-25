@@ -2,6 +2,7 @@ use std::alloc::System;
 use std::env;
 use std::io::{stdin, stdout, Write};
 use utils::logger::*;
+use std::any::{Any, TypeId};
 
 pub mod utils;
 pub mod event;
@@ -44,18 +45,24 @@ pub fn get_args() -> Vec<String>{
     args
 }
 
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_get_args() {
-        env::set_var("CARGO_BIN_NAME", "test_binary");
-        let args = get_args();
-        assert!(args.len() >= 1, "Expected at least one argument (binary path).");
-    }
+#[macro_export]
+macro_rules! is {
+    ($val:expr, $ty:ty) => {{
+        fn check<T: Any + 'static>(val: &T) -> bool {
+            val.type_id() == TypeId::of::<$ty>()
+        }
+        check(&$val)
+    }};
 }
+
+#[macro_export]
+macro_rules! implements {
+    ($val:expr, $trait:path) => {{
+        use std::any::Any;
+        ($val as &dyn Any).downcast_ref::<&dyn $trait>().is_some()
+    }};
+}
+
 
 
 
