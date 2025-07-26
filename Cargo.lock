@@ -475,6 +475,8 @@ checksum = "271414315aff87387382ec3d271b52d7ae78726f5d44ac98b4f4030c91880486"
 [[package]]
 name = "zhrxxprocs"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a11f3a604ca2ace41143188e190bfc32f5a9c6ba81c39220e7ba95d20d4bc360"
 dependencies = [
  "quote",
  "syn",
