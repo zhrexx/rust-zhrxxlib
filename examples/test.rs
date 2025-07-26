@@ -7,5 +7,4 @@ struct A;
 fn main() {
     let a = A;
     println!("{}", is!(a, A));
-
 }

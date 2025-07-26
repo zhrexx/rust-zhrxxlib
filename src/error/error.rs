@@ -1,5 +1,4 @@
 use std::collections::HashMap;
-use std::ptr::null;
 
 pub enum ErrorSeverity {
     Fatal,
@@ -34,8 +33,8 @@ impl Errors {
     }
 
     /// Throw an Error
-    pub fn throwError(&mut self, name: &str, severity: ErrorSeverity) {
-        let mut sv;
+    pub fn throw_error(&mut self, name: &str, severity: ErrorSeverity) {
+        let sv;
         match severity {
             ErrorSeverity::Fatal => {sv = "Fatal"}
             ErrorSeverity::Warning => {sv = "Warning"}

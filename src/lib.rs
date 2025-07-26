@@ -1,8 +1,5 @@
-use std::alloc::System;
 use std::env;
 use std::io::{stdin, stdout, Write};
-use utils::logger::*;
-use std::any::{Any, TypeId};
 
 pub mod utils;
 pub mod event;
@@ -16,14 +13,14 @@ pub mod error;
 /// println!("{}" ,input)
 /// ```
 pub fn input(prompt:&str) -> String {
-    let mut s=String::new();
+    let mut s = String::new();
     print!("{}", prompt);
-    let _=stdout().flush();
+    let _= stdout().flush();
     stdin().read_line(&mut s).expect("Did not enter a correct string");
-    if let Some('\n')=s.chars().next_back() {
+    if let Some('\n') = s.chars().next_back() {
         s.pop();
     }
-    if let Some('\r')=s.chars().next_back() {
+    if let Some('\r') = s.chars().next_back() {
         s.pop();
     }
 
@@ -40,9 +37,7 @@ pub fn input(prompt:&str) -> String {
 /// println!("{:?}" ,args)
 /// ```
 pub fn get_args() -> Vec<String>{
-    let args: Vec<String> = env::args().collect();
-
-    args
+    env::args().collect()
 }
 
 #[macro_export]

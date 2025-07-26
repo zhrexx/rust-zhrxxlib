@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc};
 
 pub trait EventListener: Send + Sync {
     fn on_event(&self, event_name: &str);
