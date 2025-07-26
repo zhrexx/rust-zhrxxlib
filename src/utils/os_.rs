@@ -1,5 +1,5 @@
 
-use std::env::home_dir;
+use dirs::home_dir;
 
 pub fn get_home_dir() -> Option<String> {
     match home_dir() {
