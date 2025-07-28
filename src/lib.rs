@@ -123,12 +123,12 @@ impl<T> SharedMutable<T> {
         unsafe { f(&mut *self.value.get()) }
     }
 
-    pub unsafe fn get(&self) -> &T {
-        &*self.value.get()
+    pub fn get(&self) -> &T {
+        unsafe {&*self.value.get()}
     }
 
-    pub unsafe fn get_mut(&self) -> &mut T {
-        &mut *self.value.get()
+    pub fn get_mut(&self) -> &mut T {
+        unsafe {&mut *self.value.get()}
     }
 }
 
