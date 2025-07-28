@@ -9,6 +9,5 @@ fn main() {
     let a = A;
     println!("{}", is!(a, A));
     let windows = get_windows().unwrap();
-    
     println!("{:?}", windows);
 }

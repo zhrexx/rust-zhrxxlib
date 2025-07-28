@@ -4,11 +4,12 @@ version = 4
 
 [[package]]
 name = "ZHRXXLib"
-version = "0.4.7"
+version = "0.4.8"
 dependencies = [
  "chrono",
  "crossterm",
  "dirs",
+ "spin",
  "urlencoding",
  "x-win",
  "zhrxxprocs",
@@ -1670,6 +1671,15 @@ name = "smallvec"
 version = "1.15.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "67b1b7a3b5fe4f1376887184045fcf45c69e92af734b7aaddc05fb777b6fbd03"
+
+[[package]]
+name = "spin"
+version = "0.10.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d5fe4ccb98d9c292d56fec89a5e07da7fc4cf0dc11e156b41793132775d3e591"
+dependencies = [
+ "lock_api",
+]
 
 [[package]]
 name = "static_assertions"

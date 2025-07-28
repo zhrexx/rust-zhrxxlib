@@ -10,16 +10,19 @@
 ###
 
 ### !! Github Account needed for:
->### [Issues](https://github.com/zhrxxgroup/rust-zhrxxlib/issues)
->### [Ideas](https://github.com/zhrxxgroup/rust-zhrxxlib/discussions/categories/ideas)
->### [Future Votes](https://github.com/zhrxxgroup/rust-zhrxxlib/discussions/categories/polls)
+>### [Issues](https://github.com/zhrexx/rust-zhrxxlib/issues)
+>### [Ideas](https://github.com/zhrexx/rust-zhrxxlib/discussions/categories/ideas)
+>### [Future Votes](https://github.com/zhrexx/rust-zhrxxlib/discussions/categories/polls)
 
-### Change Log
-> Removed Buffer consider using Vec< dyn Any >
+### Changelogs
+> Custom simple lazy_static alternative
 
-> Added Documentation
+### Features
+| name  | default | description|
+|-------|---------|-------------|
+| lazy  | on      | Enables a simple lazy_static alternative
+| std   | on      | allows the lib the use of std (enables many functionality)
 
-> Removed Error module
 ### Dependencies
 
-https://crates.io/crates/ZHRXXLib/0.4.3/dependencies
+https://crates.io/crates/ZHRXXLib/0.4.8/dependencies
