@@ -1,6 +1,8 @@
+/// Logger module used for logging with colors
 use std::fs::OpenOptions;
 use std::io::Write;
 use chrono::Local;
+use crossterm::ExecutableCommand;
 
 #[derive(Debug)]
 pub enum LogLevel {
@@ -10,29 +12,22 @@ pub enum LogLevel {
     Error,
 }
 
-fn get_color(level: &LogLevel) -> String {
-    match level {
-        LogLevel::Debug => "\x1b[34m",   // Blue
-        LogLevel::Info => "\x1b[32m",    // Green
-        LogLevel::Warning => "\x1b[33m", // Yellow
-        LogLevel::Error => "\x1b[31m",   // Red
-    }
-        .to_string()
-}
-
-fn reset_color() -> String {
-    "\x1b[0m".to_string()
-}
-
-pub fn log(level: LogLevel, msg: &str, log_to_file: bool) {
+/// Internal function used by helpers
+fn log(level: LogLevel, msg: &str, log_to_file: bool) {
     let timestamp = Local::now().format("%Y-%m-%d %H:%M:%S").to_string();
-    let color = get_color(&level);
-    let reset = reset_color();
     let level_str = format!("{:?}", level).to_uppercase();
 
-    let log_message = format!("{}[{}] {}{}{}", color, level_str, msg, reset, "\n");
+    let log_message = format!("[{}] {}{}", level_str, msg, "\n");
 
+    let mut stdout = std::io::stdout();
+    stdout.execute(crossterm::style::SetForegroundColor(match level {
+        LogLevel::Debug => crossterm::style::Color::Blue,
+        LogLevel::Info => crossterm::style::Color::Green,
+        LogLevel::Warning => crossterm::style::Color::Yellow,
+        LogLevel::Error => crossterm::style::Color::Red,
+    })).unwrap();
     print!("{}", log_message);
+    stdout.execute(crossterm::style::ResetColor).unwrap();
 
     if log_to_file {
         let mut file = OpenOptions::new()
@@ -41,23 +36,30 @@ pub fn log(level: LogLevel, msg: &str, log_to_file: bool) {
             .open("log.txt")
             .expect("Unable to open log file");
 
-        let file_message = format!("{} [{}]: {}{}", timestamp, level_str, msg, "\n");
+        let file_message = format!("{} {}", timestamp, log_message);
         file.write_all(file_message.as_bytes()).expect("Unable to write to log file");
     }
 }
 
+/// Used for Debug prints 
+/// NOTE / FEATURE: dont prints if compiled in release mode
 pub fn debug(msg: &str, log_to_file: bool) {
+    #[cfg(debug_assertions)]
     log(LogLevel::Debug, msg, log_to_file);
 }
 
+
+/// Used for Info prints 
 pub fn info(msg: &str, log_to_file: bool) {
     log(LogLevel::Info, msg, log_to_file);
 }
 
+/// Used for warnings
 pub fn warning(msg: &str, log_to_file: bool) {
     log(LogLevel::Warning, msg, log_to_file);
 }
 
+/// Used for errors
 pub fn error(msg: &str, log_to_file: bool) {
     log(LogLevel::Error, msg, log_to_file);
 }

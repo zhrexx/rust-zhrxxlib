@@ -14,4 +14,12 @@
 >### [Ideas](https://github.com/zhrxxgroup/rust-zhrxxlib/discussions/categories/ideas)
 >### [Future Votes](https://github.com/zhrxxgroup/rust-zhrxxlib/discussions/categories/polls)
 
+### Change Log
+> Removed Buffer consider using Vec< dyn Any >
+
+> Added Documentation
+
+> Removed Error module
+### Dependencies
+
 https://crates.io/crates/ZHRXXLib/0.4.3/dependencies

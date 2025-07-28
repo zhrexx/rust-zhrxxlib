@@ -18,10 +18,9 @@ impl Events {
 
     /// Register a listener for a specific event
     pub fn register_listener<T: EventListener + 'static>(&mut self, event_name: &str, listener: T) {
-        let listener = Arc::new(listener); // Wrap listener in Arc
-        let event_name_owned = event_name.to_string(); // Clone the event_name to own the string
-
-        // Add the listener to the specified event
+        let listener = Arc::new(listener);
+        let event_name_owned = event_name.to_string();
+        
         self.event_handlers
             .entry(event_name_owned.clone())
             .or_insert_with(Vec::new)
@@ -47,13 +46,4 @@ impl Events {
             println!("Event '{}' does not exist or has no handlers.", event_name);
         }
     }
-}
-
-#[macro_export]
-macro_rules! event {
-    ($name:expr) => {
-        fn __event_name() -> &'static str {
-            $name
-        }
-    };
 }

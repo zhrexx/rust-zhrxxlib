@@ -6,7 +6,6 @@ use std::hint::spin_loop;
 
 pub mod utils;
 pub mod event;
-pub mod error;
 
 /// Allows to get User Input
 ///
@@ -43,6 +42,8 @@ pub fn get_args() -> Vec<String>{
     env::args().collect()
 }
 
+
+/// Allows to check a function is of type T and is static for references make is!(*reference, T)
 #[macro_export]
 macro_rules! is {
     ($val:expr, $ty:ty) => {{
@@ -53,6 +54,7 @@ macro_rules! is {
     }};
 }
 
+/// Allows to check if a type implements trait T for references make is!(*reference, T)
 #[macro_export]
 macro_rules! implements {
     ($val:expr, $trait:path) => {{
@@ -61,6 +63,7 @@ macro_rules! implements {
     }};
 }
 
+/// A thread mutex this means it dont holds a value
 pub struct TMutex {
     locked: AtomicBool,
 }
@@ -100,6 +103,8 @@ impl<'a> Drop for TMutexGuard<'a> {
     }
 }
 
+/// Allows to store a mutable value in a static must be used with lazy_static
+/// if you not a C Guy like i am just use Mutex<T>
 pub struct SharedMutable<T> {
     value: UnsafeCell<T>,
     mutex: TMutex,
