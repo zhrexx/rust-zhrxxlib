@@ -1,5 +1,8 @@
 use std::env;
 use std::io::{stdin, stdout, Write};
+use core::cell::UnsafeCell;
+use core::sync::atomic::{AtomicBool, Ordering};
+use std::hint::spin_loop;
 
 pub mod utils;
 pub mod event;
@@ -58,10 +61,6 @@ macro_rules! implements {
     }};
 }
 
-use core::cell::UnsafeCell;
-use core::sync::atomic::{AtomicBool, Ordering};
-use std::hint::spin_loop;
-
 pub struct TMutex {
     locked: AtomicBool,
 }
@@ -114,24 +113,20 @@ impl<T> SharedMutable<T> {
         }
     }
 
-    /// Call `f` with a shared reference to the inner value.
     pub fn with<R>(&self, f: impl FnOnce(&T) -> R) -> R {
         let _guard = self.mutex.guard();
         unsafe { f(&*self.value.get()) }
     }
 
-    /// Call `f` with a mutable reference to the inner value.
     pub fn with_mut<R>(&self, f: impl FnOnce(&mut T) -> R) -> R {
         let _guard = self.mutex.guard();
         unsafe { f(&mut *self.value.get()) }
     }
 
-    /// Manually access immutable reference (unsafe).
     pub unsafe fn get(&self) -> &T {
         &*self.value.get()
     }
 
-    /// Manually access mutable reference (unsafe).
     pub unsafe fn get_mut(&self) -> &mut T {
         &mut *self.value.get()
     }
