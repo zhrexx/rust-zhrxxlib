@@ -1,5 +1,7 @@
 #[cfg(feature = "std")]
 use std::io::{stdin, stdout, Write};
+#[cfg(feature = "std")]
+use std::env;
 use core::cell::UnsafeCell;
 use core::sync::atomic::{AtomicBool, Ordering};
 use core::hint::spin_loop;
