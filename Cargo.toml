@@ -1,15 +1,14 @@
 [package]
 name = "ZHRXXLib"
-version = "0.4.4"
+version = "0.4.5"
 
-authors = ["zhrxxgroup"]
+authors = ["zhrexx"]
 description = "Simple Library, will be updated in future"
 license = "MIT"
-homepage = "https://github.com/zhrxxgroup/rust-zhrxxlib"
+homepage = "https://github.com/zhrexx/rust-zhrxxlib"
 
 keywords = ["lib", "zhrxxgroup"]
 categories = ["command-line-utilities"]
-documentation = "https://zxdocs.gitbook.io/zhrxxlib"
 
 edition = "2024"
 include = [
