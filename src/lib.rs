@@ -58,6 +58,95 @@ macro_rules! implements {
     }};
 }
 
+use core::cell::UnsafeCell;
+use core::sync::atomic::{AtomicBool, Ordering};
+use std::hint::spin_loop;
 
+pub struct TMutex {
+    locked: AtomicBool,
+}
 
+impl TMutex {
+    pub const fn new() -> Self {
+        TMutex {
+            locked: AtomicBool::new(false),
+        }
+    }
+
+    pub fn lock(&self) {
+        while self.locked.swap(true, Ordering::Acquire) {
+            while self.locked.load(Ordering::Relaxed) {
+                spin_loop();
+            }
+        }
+    }
+
+    pub fn unlock(&self) {
+        self.locked.store(false, Ordering::Release);
+    }
+
+    pub fn guard(&self) -> TMutexGuard<'_> {
+        self.lock();
+        TMutexGuard { mutex: self }
+    }
+}
+
+pub struct TMutexGuard<'a> {
+    mutex: &'a TMutex,
+}
+
+impl<'a> Drop for TMutexGuard<'a> {
+    fn drop(&mut self) {
+        self.mutex.unlock();
+    }
+}
+
+pub struct SharedMutable<T> {
+    value: UnsafeCell<T>,
+    mutex: TMutex,
+}
+
+impl<T> SharedMutable<T> {
+    pub const fn new(value: T) -> Self {
+        SharedMutable {
+            value: UnsafeCell::new(value),
+            mutex: TMutex::new(),
+        }
+    }
+
+    /// Call `f` with a shared reference to the inner value.
+    pub fn with<R>(&self, f: impl FnOnce(&T) -> R) -> R {
+        let _guard = self.mutex.guard();
+        unsafe { f(&*self.value.get()) }
+    }
+
+    /// Call `f` with a mutable reference to the inner value.
+    pub fn with_mut<R>(&self, f: impl FnOnce(&mut T) -> R) -> R {
+        let _guard = self.mutex.guard();
+        unsafe { f(&mut *self.value.get()) }
+    }
+
+    /// Manually access immutable reference (unsafe).
+    pub unsafe fn get(&self) -> &T {
+        &*self.value.get()
+    }
+
+    /// Manually access mutable reference (unsafe).
+    pub unsafe fn get_mut(&self) -> &mut T {
+        &mut *self.value.get()
+    }
+}
+
+impl<T: Copy> SharedMutable<T> {
+    pub fn get_copy(&self) -> T {
+        self.with(|v| *v)
+    }
+
+    pub fn set(&self, val: T) {
+        self.with_mut(|v| *v = val);
+    }
+}
+
+unsafe impl<T: Send> Send for SharedMutable<T> {}
+unsafe impl<T: Send> Sync for SharedMutable<T> {}
 
