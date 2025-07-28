@@ -1,9 +1,9 @@
 [package]
 name = "ZHRXXLib"
-version = "0.4.5"
+version = "0.4.6"
 
 authors = ["zhrexx"]
-description = "Simple Library, will be updated in future"
+description = "Simple Library, Provides some simple yet useful functions"
 license = "MIT"
 homepage = "https://github.com/zhrexx/rust-zhrxxlib"
 
