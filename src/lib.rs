@@ -112,6 +112,7 @@ impl<'a> Drop for TMutexGuard<'a> {
 
 /// Allows to store a mutable value in a static must be used with lazy_static
 /// if you not a C Guy like I just use Mutex<T>
+/// this implementation is available in no_std
 pub struct SharedMutable<T> {
     value: UnsafeCell<T>,
     mutex: TMutex,
@@ -218,6 +219,3 @@ macro_rules! lazy_static {
         $(lazy_static!(static ref $name: $t = $init;);)*
     };
 }
-
-
-
