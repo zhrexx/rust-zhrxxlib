@@ -4,18 +4,24 @@
 ####
 <img src="https://img.shields.io/badge/build-passing-darkgreen.svg">
 <img src="https://img.shields.io/badge/test-passing-darkgreen.svg">
+<img src="https://img.shields.io/badge/reviews-welcome-blue.svg" alt="reviews welcome">
+
 
 ### [Documentation](https://docs.rs/ZHRXXLib/latest/ZHRXXLib/)
 
 ###
 
-### !! Github Account needed for:
+### 📝 Leave a Review
+Tried **ZHRXXLib**? Share your thoughts in a quick review — it helps improve the project!
+
+👉 [Leave a Review](https://review.zhrexx.com/)
+
 >### [Issues](https://github.com/zhrexx/rust-zhrxxlib/issues)
 >### [Ideas](https://github.com/zhrexx/rust-zhrxxlib/discussions/categories/ideas)
 >### [Future Votes](https://github.com/zhrexx/rust-zhrxxlib/discussions/categories/polls)
 
 ### Changelogs
-> Custom simple lazy_static alternative
+> Changed readme 
 
 ### Features
 | name  | default | description|
@@ -25,4 +31,4 @@
 
 ### Dependencies
 
-https://crates.io/crates/ZHRXXLib/0.4.8/dependencies
+https://crates.io/crates/ZHRXXLib/0.4.9/dependencies
